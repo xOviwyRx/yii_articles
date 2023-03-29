@@ -23,6 +23,10 @@ $config = [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'cache' => 'cache'
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -46,8 +50,11 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'article/<action:(index|update|create|delete)>' => 'article/<action>',
+                'article/<slug>' => 'article/view'
             ],
         ],
+        
     ],
     'params' => $params,
 ];

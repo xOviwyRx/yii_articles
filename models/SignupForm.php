@@ -28,6 +28,9 @@ class SignupForm extends Model {
         $user->auth_key = \Yii::$app->security->generateRandomString();
 
         if ($user->save()){
+            $auth = \Yii::$app->authManager;
+            $regularUser = $auth->getRole('regular_user');
+            $auth->assign($regularUser, $user->getId());
             return true;
         }
 
