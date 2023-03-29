@@ -13,9 +13,7 @@ use yii\web\IdentityInterface;
  * @property string $password
  * @property string $auth_key
  * @property string $access_token
- * @property int $role_id
  *
- * @property Role $role
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -37,8 +35,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['role_id'], 'integer'],
             [['username'], 'string', 'min' => 4, 'max' => 55],
             [['password', 'auth_key', 'access_token'], 'string', 'max' => 255],
-            [['username'], 'unique'],
-            [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Role::class, 'targetAttribute' => ['role_id' => 'id']],
+            [['username'], 'unique']
         ];
     }
 
@@ -52,19 +49,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'username' => 'Username',
             'password' => 'Password',
             'auth_key' => 'Auth Key',
-            'access_token' => 'Access Token',
-            'role_id' => 'Role ID',
+            'access_token' => 'Access Token'
         ];
-    }
-
-    /**
-     * Gets query for [[Role]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRole()
-    {
-        return $this->hasOne(Role::class, ['id' => 'role_id']);
     }
 
     /**
