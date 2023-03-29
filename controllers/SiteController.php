@@ -3,12 +3,13 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\web\Response;
-use yii\filters\VerbFilter;
+use yii\web\Controller;
 use app\models\LoginForm;
+use app\models\SignupForm;
 use app\models\ContactForm;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 class SiteController extends Controller
 {
@@ -83,6 +84,18 @@ class SiteController extends Controller
         $model->password = '';
         return $this->render('login', [
             'model' => $model,
+        ]);
+    }
+
+    public function actionSignup(){
+        $model = new SignupForm();
+        
+        if ($model->load(Yii::$app->request->post()) && $model->signup()){
+            return $this->redirect(Yii::$app->homeUrl);
+        }
+
+        return $this->render('signup', [
+            'model' => $model
         ]);
     }
 

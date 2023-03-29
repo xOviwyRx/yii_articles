@@ -33,9 +33,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'password', 'auth_key', 'access_token', 'role_id'], 'required'],
+            [['username', 'password', 'auth_key', 'access_token'], 'required'],
             [['role_id'], 'integer'],
-            [['username'], 'string', 'max' => 55],
+            [['username'], 'string', 'min' => 4, 'max' => 55],
             [['password', 'auth_key', 'access_token'], 'string', 'max' => 255],
             [['username'], 'unique'],
             [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Role::class, 'targetAttribute' => ['role_id' => 'id']],
@@ -126,6 +126,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return Yii::$app->security->validatePassword($password, $this->password);
     }
 }
