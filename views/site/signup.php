@@ -23,7 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'labelOptions' => ['class' => 'col-form-label mr-lg-3'],
             'inputOptions' => ['class' => 'col-lg-3 form-control'],
             'errorOptions' => ['class' => 'col-lg-7     invalid-feedback'],
+            
         ],
+        'enableAjaxValidation' => true
     ]); ?>
 
         <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>

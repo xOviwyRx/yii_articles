@@ -94,14 +94,16 @@ class SiteController extends Controller
     
         $model = new SignupForm();
         
-        
-        if ($model->load(Yii::$app->request->post())){
-            
-            if ($model->signup()) {
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
+            Yii::$app->response->format = Response::FORMAT_JSON; 
+            $result = ActiveForm::validate($model);
+
+            if (!empty($result)){
+                return $result;
+            } elseif ($model->signup()) {
                 return $this->redirect(Yii::$app->homeUrl);
             }
-
-        }
+        } 
 
         return $this->render('signup', [
             'model' => $model,
