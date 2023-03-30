@@ -4,24 +4,24 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var app\models\ArticleSearch $model */
+/** @var app\models\CategorySearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="article-search">
+<div class="category-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
+    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'text')->label(false) ?>
+    <?= $form->field($model, 'title') ?>
 
-    <div class="form-group mb-4 pt-3">
+    <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
-        </div>
     </div>
 
     <?php ActiveForm::end(); ?>

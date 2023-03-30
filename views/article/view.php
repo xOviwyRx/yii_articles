@@ -15,6 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <p class="text-muted mb-0">
+            <small>Category: 
+                <b><?= $model->getCategoryName() ?></b>
+            </small>
+    </p>
     <p class="text-muted">
         <small>Created At: 
             <b><?= Yii::$app->formatter->asRelativeTime($model->created_at) ?></b>

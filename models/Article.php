@@ -90,6 +90,9 @@ class Article extends \yii\db\ActiveRecord
         return $this->hasOne(Category::class, ['id' => 'category_id']);
     }
 
+    public function getCategoryName(){
+        return Category::findOne($this->category_id)->title;
+    }
     /**
     * Gets query for [[CreatedBy]].
     *

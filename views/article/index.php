@@ -14,16 +14,17 @@ $this->title = 'Articles';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-index">
-
+    <div class="d-flex justify-content-between">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php if (Yii::$app->user->can('create')): ?>
         <p>
-            <?= Html::a('Create Article', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Create New Article', ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
+    </div>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= ListView::widget([
         'dataProvider' => $dataProvider,

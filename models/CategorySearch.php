@@ -4,23 +4,21 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Article;
+use app\models\Category;
 
 /**
- * ArticleSearch represents the model behind the search form of `app\models\Article`.
+ * CategorySearch represents the model behind the search form of `app\models\Category`.
  */
-
-class ArticleSearch extends Article
+class CategorySearch extends Category
 {
-    public $text;
-
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            ['text', 'string'],
+            [['id'], 'integer'],
+            [['title'], 'safe'],
         ];
     }
 
@@ -42,7 +40,7 @@ class ArticleSearch extends Article
      */
     public function search($params)
     {
-        $query = Article::find()->orderBy('created_at DESC');
+        $query = Category::find();
 
         // add conditions that should always apply here
 
@@ -58,21 +56,13 @@ class ArticleSearch extends Article
             return $dataProvider;
         }
 
-        $query->filterWhere(['like', 'title', $this->text])
-            ->orFilterWhere(['like', 'body', $this->text]);
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+        ]);
+
+        $query->andFilterWhere(['like', 'title', $this->title]);
 
         return $dataProvider;
     }
-
-    // public function reset($params)
-    // {
-    //     $query = Article::find()->orderBy('created_at DESC');
-    //     $dataProvider = new ActiveDataProvider([
-    //         'query' => $query,
-    //     ]);
-    //     echo 'ok';
-    //     $this->load($params);
-    //     return $dataProvider;
-
-    // }
 }

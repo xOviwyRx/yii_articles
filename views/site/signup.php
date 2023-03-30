@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'layout' => 'horizontal',
         'fieldConfig' => [
             'template' => "{label}\n{input}\n{error}",
-            'labelOptions' => ['class' => 'col-lg-1 col-form-label mr-lg-3'],
+            'labelOptions' => ['class' => 'col-form-label mr-lg-3'],
             'inputOptions' => ['class' => 'col-lg-3 form-control'],
             'errorOptions' => ['class' => 'col-lg-7 invalid-feedback'],
         ],
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'password_repeat')->passwordInput() ?>
         
         <div class="form-group">
-            <div class="offset-lg-1 col-lg-11">
+            <div class="col-lg-11">
                 <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>
         </div>
