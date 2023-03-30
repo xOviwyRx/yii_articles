@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use Symfony\Component\VarDumper\VarDumper;
 use Yii;
 use yii\base\Model;
 use yii\helpers\VarDumper as HelpersVarDumper;
@@ -21,8 +20,7 @@ class SignupForm extends Model {
             [['password', 'password_repeat'], 'string', 'min' => 4],
             ['password_repeat', 'compare', 'compareAttribute' => 'password'],
             ['email', 'email', 'message'=>"The email isn't correct"],
-            ['full_name', 'string', 'max' => 255],
-            ['username', 'unique'] 
+            ['full_name', 'string', 'max' => 255]
         ];
     }
 
