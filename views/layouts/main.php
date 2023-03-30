@@ -41,6 +41,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             Yii::$app->user->isGuest ? '' : ['label' => 'Articles', 'url' => ['article/index']],
+            Yii::$app->user->can('browse_users') ? ['label' => 'Users', 'url' => ['user/index']] : '',
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest

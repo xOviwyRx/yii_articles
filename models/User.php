@@ -13,7 +13,10 @@ use yii\web\IdentityInterface;
  * @property string $password
  * @property string $auth_key
  * @property string $access_token
- *
+ * @property string|null $email 
+ * @property string|null $full_name 
+ * 
+ * @property Article[] $articles 
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -33,7 +36,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return [
             [['username', 'password', 'auth_key', 'access_token'], 'required'],
             [['username'], 'string', 'min' => 4, 'max' => 55],
-            [['password', 'auth_key', 'access_token'], 'string', 'max' => 255],
+            [['password', 'auth_key', 'access_token', 'full_name'], 'string', 'max' => 255],
+            [['email'], 'email'],
             [['username'], 'unique']
         ];
     }
@@ -48,7 +52,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'username' => 'Username',
             'password' => 'Password',
             'auth_key' => 'Auth Key',
-            'access_token' => 'Access Token'
+            'access_token' => 'Access Token',
+            'email' => 'Email',
+            'full_name' => 'Full Name',
         ];
     }
 
@@ -112,5 +118,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function validatePassword($password)
     {
         return Yii::$app->security->validatePassword($password, $this->password);
+    }
+
+    public function getArticles()
+	{
+            return $this->hasMany(Article::class, ['created_by' => 'id']);
     }
 }

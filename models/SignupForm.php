@@ -11,12 +11,17 @@ class SignupForm extends Model {
     public $username;
     public $password;
     public $password_repeat;
+    public $email;
+    public $full_name;
 
     public function rules(){
         return [
             [['username', 'password', 'password_repeat'], 'required'],
-            [['username', 'password', 'password_repeat'], 'string', 'min' => 4, 'max' => 16],
-            ['password_repeat', 'compare', 'compareAttribute' => 'password']
+            [['username'], 'string', 'min' => 4, 'max' => 16],
+            [['password', 'password_repeat'], 'string', 'min' => 4],
+            ['password_repeat', 'compare', 'compareAttribute' => 'password'],
+            ['email', 'email', 'message'=>"The email isn't correct"],
+            ['full_name', 'string', 'max' => 255] 
         ];
     }
 
@@ -26,6 +31,8 @@ class SignupForm extends Model {
         $user->password = \Yii::$app->security->generatePasswordHash($this->password);
         $user->access_token = \Yii::$app->security->generateRandomString();
         $user->auth_key = \Yii::$app->security->generateRandomString();
+        $user->email = $this->email;
+        $user->full_name = $this->full_name;
 
         if ($user->save()){
             $auth = \Yii::$app->authManager;

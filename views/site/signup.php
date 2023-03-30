@@ -28,13 +28,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
+        <?= $form->field($model, 'full_name')->textInput() ?>
+
+        <?= $form->field($model, 'email')->input('email') ?>
+
         <?= $form->field($model, 'password')->passwordInput() ?>
 
         <?= $form->field($model, 'password_repeat')->passwordInput() ?>
-
+        
         <div class="form-group">
             <div class="offset-lg-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>
         </div>
 
