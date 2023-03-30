@@ -40,8 +40,8 @@ class SignupForm extends Model {
             $auth->assign($regularUser, $user->getId());
             return true;
         }
-
-        \Yii::error(message: "User was not saved. " . HelpersVarDumper::dumpAsString($user->errors));
-        return $user->errors;
+        
+        $this->addErrors($user->errors);
+        return false;
     }
 }
