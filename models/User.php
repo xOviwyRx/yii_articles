@@ -38,7 +38,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['username'], 'string', 'min' => 4, 'max' => 55],
             [['password', 'auth_key', 'access_token', 'full_name'], 'string', 'max' => 255],
             [['email'], 'email'],
-            [['username'], 'unique']
+            [['username'], 'unique', 'message'=>'Username already exist. Please try another one.']
         ];
     }
 
@@ -54,7 +54,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'auth_key' => 'Auth Key',
             'access_token' => 'Access Token',
             'email' => 'Email',
-            'full_name' => 'Full Name',
+            'full_name' => 'Full Name'
         ];
     }
 
@@ -123,5 +123,33 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function getArticles()
 	{
             return $this->hasMany(Article::class, ['created_by' => 'id']);
+    }
+
+    public function addRole($role){
+        // $this->roles = Yii::$app->authManager->getRolesByUser($this->id);
+    }
+
+    public function deleteRole($role){
+
+    }
+
+    public function getRoles(){
+        $roles = Yii::$app->authManager->getRolesByUser($this->id);
+        $role_names = array_map(function ($role) { return $role->name; }, $roles);
+        return implode(", ", $role_names);
+    }
+
+    public function getPossibleRoles(){
+        $existingRoles = Yii::$app->authManager->getRolesByUser($this->id);
+        $allRoles = Yii::$app->authManager->getRoles();
+        $possibleRoles = [];
+        foreach ($allRoles as $role){
+            if (!in_array($role, $existingRoles)){
+                $possibleRoles[] = $role;
+            }
+        }
+        return $possibleRoles;
+
+        // return array_diff(Yii::$app->authManager->getRoles(), $existingRoles);
     }
 }

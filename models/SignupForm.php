@@ -20,7 +20,8 @@ class SignupForm extends Model {
             [['password', 'password_repeat'], 'string', 'min' => 4],
             ['password_repeat', 'compare', 'compareAttribute' => 'password'],
             ['email', 'email', 'message'=>"The email isn't correct"],
-            ['full_name', 'string', 'max' => 255]
+            ['full_name', 'string', 'max' => 255],
+            ['username', 'unique', 'targetClass' => User::class, 'targetAttribute' => 'username', 'message' => 'This username has already taken']
         ];
     }
 

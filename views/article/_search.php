@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group mb-4 pt-3">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::a('Reset', ['index'], ['class' => 'btn btn-outline-secondary']) ?>
         </div>
     </div>
 

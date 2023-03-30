@@ -51,7 +51,9 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'article/<action:(index|update|create|delete)>' => 'article/<action>',
-                'article/<slug>' => 'article/view'
+                'article/<slug>' => 'article/view',
+                'user/<action:(index|update|create|delete)>' => 'user/<action>',
+                'user/<username>' => 'user/view',
             ],
         ],
         

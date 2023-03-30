@@ -14,7 +14,7 @@ $this->title = 'Articles';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-index">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between align-items-end">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php if (Yii::$app->user->can('create')): ?>

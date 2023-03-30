@@ -20,7 +20,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(Category::find()->all(),'id','title'),) ?>
 
-    <div class="form-group">
+    <div class="form-group mt-3">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 

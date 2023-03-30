@@ -26,11 +26,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'username',
             'email:email', 
-		    'full_name',
+            [
+                'label' => 'Roles',
+                'value' => function ($model) {
+                    return $model->getRoles();
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, User $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
+                    return Url::toRoute([$action, 'username' => $model->username]);
                  }
             ],
         ],
