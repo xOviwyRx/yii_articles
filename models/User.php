@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\VarDumper;
 use yii\web\IdentityInterface;
 
 /**
@@ -20,6 +21,7 @@ use yii\web\IdentityInterface;
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
+    public $new_role, $delete_role;
     /**
      * {@inheritdoc}
      */
@@ -54,7 +56,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'auth_key' => 'Auth Key',
             'access_token' => 'Access Token',
             'email' => 'Email',
-            'full_name' => 'Full Name'
+            'full_name' => 'Full Name',
+            'new_role' => 'New Role'
         ];
     }
 
@@ -125,21 +128,17 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             return $this->hasMany(Article::class, ['created_by' => 'id']);
     }
 
-    public function addRole($role){
-        // $this->roles = Yii::$app->authManager->getRolesByUser($this->id);
-    }
-
-    public function deleteRole($role){
-
+    public function getRolesArray(){
+        $roles = Yii::$app->authManager->getRolesByUser($this->id);
+        $roles = array_map(function ($role) { return $role->name; }, $roles);
+        return $roles;
     }
 
     public function getRoles(){
-        $roles = Yii::$app->authManager->getRolesByUser($this->id);
-        $role_names = array_map(function ($role) { return $role->name; }, $roles);
-        return implode(", ", $role_names);
+        return implode(", ", $this->getRolesArray());
     }
 
-    public function getPossibleRoles(){
+    public function getPossibleNewRoles(){
         $existingRoles = Yii::$app->authManager->getRolesByUser($this->id);
         $allRoles = Yii::$app->authManager->getRoles();
         $possibleRoles = [];
@@ -149,7 +148,17 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             }
         }
         return $possibleRoles;
+    }
 
-        // return array_diff(Yii::$app->authManager->getRoles(), $existingRoles);
+    public function addNewRole($role){
+        $auth = Yii::$app->authManager;
+        $newRole = $auth->getRole($role);
+        $auth->assign($newRole, $this->id);
+    }
+
+    public function deleteRole($role){
+        $auth = Yii::$app->authManager;
+        $newRole = $auth->getRole($role);
+        $auth->revoke($newRole, $this->id);
     }
 }

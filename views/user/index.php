@@ -29,12 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Roles',
                 'value' => function ($model) {
-                    return $model->getRoles();
+                    return $model->roles;
                 }
             ],
             [
                 'class' => ActionColumn::className(),
-                'template' => '{view} {delete}',
                 'urlCreator' => function ($action, User $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'username' => $model->username]);
                  }

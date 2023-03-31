@@ -36,6 +36,11 @@ class UserController extends Controller
                     ],
                     [
                         'allow' => true,
+                        'actions' => ['update'],
+                        'roles' => ['admin'],
+                    ],
+                    [
+                        'allow' => true,
                         'actions' => ['delete'],
                         'roles' => ['admin'],
                     ],
@@ -92,7 +97,17 @@ class UserController extends Controller
         $model = $this->findModel($username);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->username]);
+
+            $newRole = $this->request->post('User')['new_role'] ?? '';
+            if (!empty($newRole)){
+                $model->addNewRole($newRole);
+            }
+
+            $deleteRole = $this->request->post('User')['delete_role'] ?? '';
+            if (!empty($deleteRole)){
+                $model->deleteRole($deleteRole);
+            }
+            return $this->redirect(['view', 'username' => $model->username]);
         }
 
         return $this->render('update', [
