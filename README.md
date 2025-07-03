@@ -1,9 +1,48 @@
-<p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-    <h1 align="center">Yii 2 Articles Project</h1>
-    <br>
-</p>
+# Yii Articles Management System
 
-This is a simple Yii 2 application based on basic Yii 2 template. This application has login/registration functionality, uses RBAC for role management. Authorized regular users can see the content of the articles. Admin users can see other users, change their roles. Besides admins can edit articles and categories for articles.
+A content management system built with Yii 2 Framework featuring user authentication, role-based access control, and article management.
+
+## Features
+
+- **User Authentication**: Login/registration system
+- **Role-Based Access Control**: Admin and regular user permissions
+- **Article Management**: CRUD operations for articles and categories
+- **User Management**: Admin interface for managing users and roles
+
+## Technology Stack
+
+- **Backend**: Yii 2 Framework (PHP)
+- **Database**: MySQL
+- **Frontend**: Bootstrap
+- **Security**: RBAC, password hashing, CSRF protection
+
+## Quick Start
+
+1. Clone the repository
+   ```bash
+   git clone https://github.com/xOviwyRx/yii_articles.git
+   cd yii_articles
+   
+2. Install dependencies
+   ```bash
+   composer install
+3. Configure database in config/db.php
+4. Run migrations
+   ```bash
+   php yii migrate
+   php yii rbac/init
+5. Start the development server
+   ```bash
+   php yii serve
+##  User Roles
+
+- **Regular Users**: View published articles
+- **Admin Users**: Manage articles, categories, and user roles
+
+##  Demo
+The application demonstrates:
+
+- Secure authentication and authorization
+- Database design with proper relationships
+- Admin panel for content management
+- Responsive user interface
